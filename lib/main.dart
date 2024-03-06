@@ -3,15 +3,18 @@ import 'package:flutter/services.dart';
 import 'package:youtube_app/package/screns/home.page.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       title: 'My YouTube App',
-      home: const HomePage(),
+      home: HomePage(),
+      debugShowCheckedModeBanner: false,
     );
   }
 }

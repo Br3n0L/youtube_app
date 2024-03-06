@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:youtube_app/customsearchdelegate.dart';
 import 'package:youtube_app/package/screns/adicionar.dart';
 import 'package:youtube_app/package/screns/inicio.dart';
 import 'package:youtube_app/package/screns/inscricoes.dart';
@@ -17,7 +18,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     List<Widget> telas = [
-      const inicioPage(),
+      const InicioPage(),
       const shortPages(),
       const adicionarPage(),
       const inscricoesPage(),
@@ -36,10 +37,19 @@ class _HomePageState extends State<HomePage> {
           IconButton(onPressed: () {}, icon: const Icon(Icons.cast)),
           IconButton(
               onPressed: () {}, icon: const Icon(Icons.notification_add)),
-          IconButton(onPressed: () {}, icon: const Icon(Icons.search)),
+          IconButton(
+            onPressed: () async {
+              String? res = await showSearch(
+                  context: context, delegate: CustomSearchDelegate());
+            },
+            icon: const Icon(Icons.search),
+          )
         ],
       ),
-      body: telas[_indiceAtual],
+      body: Container(
+        padding: const EdgeInsets.all(16),
+        child: telas[_indiceAtual],
+      ),
       bottomNavigationBar: BottomNavigationBar(
           fixedColor: Colors.black,
           currentIndex: _indiceAtual,
