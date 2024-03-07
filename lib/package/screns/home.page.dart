@@ -17,8 +17,12 @@ class _HomePageState extends State<HomePage> {
   int _indiceAtual = 0;
   @override
   Widget build(BuildContext context) {
+    String? _resultado = '';
     List<Widget> telas = [
-      const InicioPage(),
+      InicioPage(
+        _resultado,
+        pesquisa: '',
+      ),
       const shortPages(),
       const adicionarPage(),
       const inscricoesPage(),
@@ -41,6 +45,9 @@ class _HomePageState extends State<HomePage> {
             onPressed: () async {
               String? res = await showSearch(
                   context: context, delegate: CustomSearchDelegate());
+              setState(() {
+                _resultado = res;
+              });
             },
             icon: const Icon(Icons.search),
           )

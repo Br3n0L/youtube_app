@@ -3,22 +3,33 @@ import 'package:youtube_app/API/api.dart';
 import 'package:youtube_app/package/model/video.dart';
 
 class InicioPage extends StatefulWidget {
-  const InicioPage({Key? key}) : super(key: key);
+  final String pesquisa;
+
+  InicioPage(String resultado, {Key? key, required this.pesquisa})
+      : super(key: key);
 
   @override
   State<InicioPage> createState() => _InicioPageState();
 }
 
 class _InicioPageState extends State<InicioPage> {
-  _listarVideos() {
+  late Future<List<Video>> _futureVideos;
+
+  @override
+  void initState() {
+    super.initState();
+    _futureVideos = _listarVideos(widget.pesquisa);
+  }
+
+  Future<List<Video>> _listarVideos(String pesquisa) {
     Api api = Api();
-    return api.pesquisar('');
+    return api.pesquisar(pesquisa);
   }
 
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<List<Video>>(
-      future: _listarVideos(),
+      future: _futureVideos,
       builder: (context, snapshots) {
         switch (snapshots.connectionState) {
           case ConnectionState.none:
